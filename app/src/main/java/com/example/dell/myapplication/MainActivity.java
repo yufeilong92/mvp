@@ -1,7 +1,9 @@
 package com.example.dell.myapplication;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -14,6 +16,8 @@ public class MainActivity extends AppCompatActivity implements IView, View.OnCli
 
     private Button mBtnToast;
     private com.example.dell.myapplication.presenter.persernter persernter;
+    private Button mBtnDay;
+    private Button mBtnNight;
 
     public MainActivity() {
     }
@@ -23,6 +27,7 @@ public class MainActivity extends AppCompatActivity implements IView, View.OnCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         persernter = new persernter(this, new ToaatContentMaker());
     }
 
@@ -35,6 +40,10 @@ public class MainActivity extends AppCompatActivity implements IView, View.OnCli
         mBtnToast = (Button) findViewById(R.id.btn_toast);
 
         mBtnToast.setOnClickListener(this);
+        mBtnDay = (Button) findViewById(R.id.btn_day);
+        mBtnDay.setOnClickListener(this);
+        mBtnNight = (Button) findViewById(R.id.btn_night);
+        mBtnNight.setOnClickListener(this);
     }
 
     @Override
@@ -43,6 +52,23 @@ public class MainActivity extends AppCompatActivity implements IView, View.OnCli
             case R.id.btn_toast:
                 persernter.clickButton();
                 break;
+            case R.id.btn_day:
+                setNightMode();
+                break;
+            case R.id.btn_night:
+                break;
         }
     }
+
+    private void setNightMode() {
+        //  获取当前模式
+        int mode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (mode == Configuration.UI_MODE_NIGHT_YES) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        } else if (mode == Configuration.UI_MODE_NIGHT_NO) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        recreate();
+    }
+
 }

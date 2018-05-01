@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 mList.add(new Node(persion.getId(), "-1", persion.getNanme(), persion));
             } else {
-                mList.add(new Node(persion.getId(), persion.getPid(), persion.getNanme(),persion));
+                mList.add(new Node(persion.getId(), persion.getPid(), persion.getNanme(), persion));
 
             }
         }
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 1);
         gridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         mRlvContent.setLayoutManager(gridLayoutManager);
-        mRlvContent.addItemDecoration(new DividerItemDecoration(this,GridLayoutManager.VERTICAL));
+        mRlvContent.addItemDecoration(new DividerItemDecoration(this, GridLayoutManager.VERTICAL));
         adapter = new TreeRecycler(mRlvContent,
                 this, mList, 0, R.mipmap.ic_launcher, R.mipmap.cricle);
         mRlvContent.setAdapter(adapter);
@@ -73,8 +73,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(Node node, int position) {
                 String name = node.getName();
-                Toast.makeText(MainActivity .this,position+"/"+name,Toast.LENGTH_SHORT).show();
-                Log.e("yfl", "onClick: "+node.getpId() );
+                if (!node.isRoot()) {
+                    Object id = node.getId();
+                    Toast.makeText(MainActivity.this, id + "/" + name, Toast.LENGTH_SHORT).show();
+                    Log.e("yfl", "onClick: " + node.getpId());
+                }
 
             }
         });
