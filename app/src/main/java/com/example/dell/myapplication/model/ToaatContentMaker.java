@@ -1,5 +1,7 @@
 package com.example.dell.myapplication.model;
 
+import com.example.dell.myapplication.view.IView;
+
 /**
  * @version V 1.0 xxxxxxxx
  * @Title: ToaatContentMaker.java
@@ -12,8 +14,9 @@ package com.example.dell.myapplication.model;
  * 注意：本内容仅限于学川教育有限公司内部传阅，禁止外泄以及用于其他的商业目
  */
 public class ToaatContentMaker implements Imodel{
+
     @Override
-    public String makeToastContent() {
+    public String makeToastContent(IView view) {
         return "you did click";
     }
 }

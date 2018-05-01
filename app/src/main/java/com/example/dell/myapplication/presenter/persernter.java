@@ -26,7 +26,7 @@ public class persernter {
     }
 
     public void clickButton() {
-        view.showToast(imodel.makeToastContent());
+        view.showToast(imodel.makeToastContent(view));
         Log.e("yfl", "clickButton: ");
     }
 }
